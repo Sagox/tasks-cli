@@ -1,0 +1,35 @@
+{
+  "name": "tasks-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool for Google Tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sagox/tasks-cli.git"
+  },
+  "author": "Sagar Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sagox/tasks-cli/issues"
+  },
+  "homepage": "https://github.com/Sagox/tasks-cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "columnify": "^1.5.4",
+    "commander": "^2.19.0",
+    "figlet": "^1.2.1",
+    "googleapis": "^37.2.0",
+    "inquirer": "^6.2.2",
+    "inquirer-datepicker-prompt": "^0.4.2",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23"
+  },
+  "bin": {
+    "td": "./index.js"
+  }
+}
