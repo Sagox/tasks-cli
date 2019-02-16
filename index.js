@@ -15,6 +15,7 @@ var Spinner = CLI.Spinner;
 var countdown = new Spinner('Authentication ...');
 program
   .option('-s, --show', 'Show my tasks')
+  .option('-d, --delete', 'Delete a task')
   .parse(process.argv);
 
 clear();
@@ -32,12 +33,13 @@ async function main(auth) {
   countdown.stop();
   var run = async () => {
     if(program.show) {
-        tasklist = await inquirer.getTasks(tasklists);
-        routines.getTasks(tasklist, tasklists, service);
+      routines.displayTasks(tasklists, service);
+    }
+    else if(program.delete) {
+      routines.deleteTask(tasklists, service);
     }
     else {
-      task = await inquirer.taskForm(tasklists);
-      routines.addTask(task, tasklists, service);
+      routines.addTask(tasklists, service);
     } 
   }
   await run();
