@@ -10,13 +10,13 @@ const inquirer = require('./lib/inquirer');
 const authorize = require('./lib/auth');
 const tasksApi  = require('./lib/tasksApi');
 const routines = require('./lib/routines');
-var program = require('commander');
+// var program = require('commander');
 var Spinner = CLI.Spinner;
 var countdown = new Spinner('Authentication ...');
-program
-  .option('-s, --show', 'Show my tasks')
-  .option('-d, --delete', 'Delete a task')
-  .parse(process.argv);
+// program
+//   .option('-s, --show', 'Show my tasks')
+//   .option('-d, --delete', 'Delete a task')
+//   .parse(process.argv);
 
 clear();
 console.log(
@@ -32,15 +32,21 @@ async function main(auth) {
   var tasklists = await tasksApi.getTaskLists(service);
   countdown.stop();
   var run = async () => {
-    if(program.show) {
-      routines.displayTasks(tasklists, service);
+    while(true) {
+      choice = await inquirer.begin();
+      if (choice.option[0] =='S')
+        await routines.displayTasks(tasklists, service);
+      else if (choice.option[0] == 'D')
+        await routines.deleteTask(tasklists, service);
+      else if(choice.option[0] == 'A')
+        await routines.addTask(tasklists, service);
+      else if(choice.option[0] == 'F') {
+        routines.fresh();
+      }
+      else
+        break;
     }
-    else if(program.delete) {
-      routines.deleteTask(tasklists, service);
-    }
-    else {
-      routines.addTask(tasklists, service);
-    } 
+    console.log('Bye :)\n');
   }
   await run();
 };
