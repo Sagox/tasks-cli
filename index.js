@@ -36,10 +36,19 @@ async function main(auth) {
       choice = await inquirer.begin();
       if (choice.option[0] =='S')
         await routines.displayTasks(tasklists, service);
-      else if (choice.option[0] == 'D')
+      else if (choice.option[0] == 'D' && choice.option[16] != 't')
         await routines.deleteTask(tasklists, service);
       else if(choice.option[0] == 'A')
         await routines.addTask(tasklists, service);
+      else if(choice.option[16] == 't') {
+        // console.log("Hey!");
+        await routines.deleteTasklist(tasklists, service);
+        tasklists = await tasksApi.getTaskLists(service);
+      }
+      else if(choice.option[0] == 'N') {
+        await routines.addTasklist(tasklists, service);
+        tasklists = await tasksApi.getTaskLists(service);
+      }
       else if(choice.option[0] == 'F') {
         routines.fresh();
       }
